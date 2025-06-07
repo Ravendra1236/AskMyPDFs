@@ -1,0 +1,45 @@
+# Python cache
+__pycache__/
+*.py[cod]
+*.pyo
+
+# Virtual environments
+venv/
+env/
+.venv/
+.env/
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints/
+
+# VS Code settings
+.vscode/
+
+# Mac system files
+.DS_Store
+
+# Environment variables
+.env
+
+# Hugging Face cache
+~/.cache/huggingface/
+huggingface_cache/
+*.token
+
+# LangChain outputs (if any)
+*.jsonl
+*.db
+*.sqlite
+*.log
+
+# IPython history
+.history
+
+# Model files (if downloaded locally)
+*.bin
+*.pt
+*.ckpt
+*.safetensors
+
+# Output data (if any)
+outputs/
