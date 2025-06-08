@@ -3,36 +3,29 @@ from pydantic_models import QueryInput, QueryResponse, DocumentInfo, DeleteFileR
 from langchain_utils import get_rag_chain
 from db_utils import insert_application_logs, get_chat_history, get_all_documents, insert_document_record, delete_document_record
 from chroma_utils import index_document_to_chroma, delete_doc_from_chroma
+from dotenv import load_dotenv
 import os
 import uuid
 import logging
 import shutil
 
+load_dotenv()
+
+# Get port from environment variables with fallback to 8000
+PORT = int(os.getenv("PORT", 8000))
+HOST = os.getenv("HOST", "0.0.0.0")
+
 # Set up logging
 logging.basicConfig(filename='app.log', level=logging.INFO)
 
-# Initialize FastAPI app
-app = FastAPI()
+# Initialize FastAPI app with metadata
+app = FastAPI(
+    title="AskMyPDFs API",
+    description="RAG-based Document QA System",
+    version="1.0.0"
+)
 
 
-# @app.post("/chat", response_model=QueryResponse)
-# def chat(query_input: QueryInput):
-#     session_id = query_input.session_id or str(uuid.uuid4())
-#     logging.info(f"Session ID: {session_id}, User Query: {query_input.question}, Model: {query_input.model.value}")
-    
-#     if not session_id:
-#         session_id = str(uuid.uuid4())
-
-#     chat_history = get_chat_history(session_id)
-#     rag_chain = get_rag_chain(query_input.model.value)
-#     answer = rag_chain.invoke({
-#         "input": query_input.question,
-#         "chat_history": chat_history
-#     })['answer']
-
-#     insert_application_logs(session_id, query_input.question, answer, query_input.model.value)
-#     logging.info(f"Session ID: {session_id}, AI Response: {answer}")
-#     return QueryResponse(answer=answer, session_id=session_id, model=query_input.model)
 @app.post("/chat", response_model=QueryResponse)
 async def chat(query_input: QueryInput):
     # Generate new session ID only if none provided or if it's empty/null
@@ -119,3 +112,15 @@ def delete_document(request: DeleteFileRequest):
             return {"error": f"Deleted from Chroma but failed to delete document with file_id {request.file_id} from the database."}
     else:
         return {"error": f"Failed to delete document with file_id {request.file_id} from Chroma."}
+
+
+if __name__ == "__main__":
+    import uvicorn
+    logging.info(f"Starting server on {HOST}:{PORT}")
+    uvicorn.run(
+        "main:app",
+        host=HOST,
+        port=PORT,
+        reload=True,
+        log_level="info"
+    )
