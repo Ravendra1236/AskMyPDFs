@@ -4,26 +4,26 @@ A backend REST API service that allows users to upload documents (PDF, DOCX, HTM
 
 ## 🚀 Features
 
-- Document Management:
-  - Upload PDF, DOCX, and HTML files
-  - List uploaded documents
-  - Delete documents
-- Question Answering:
-  - RAG-based answers using document context
-  - Chat history support
-  - Session management
-- Vector Storage:
-  - Chroma DB for document embeddings
-  - Google's Embedding model for vectorization
-- Database:
-  - SQLite for document and chat history storage
-  - Persistent vector storage
+### Backend (FastAPI)
+- Document Management (Upload, List, Delete)
+- RAG-based Question Answering
+- Session Management
+- Vector Storage with ChromaDB
+- SQLite Database for Persistence
+
+### Frontend (Streamlit)
+- Interactive Chat Interface
+- Document Upload and Management
+- Real-time Response Generation
+- Session History
+- Model Selection
+- Document List View
 
 ## 🛠️ Technology Stack
 
 - **Framework**: FastAPI
 - **Language Models**: 
-  - Google Gemini Pro (Chat)
+  - Google Gemini (Chat)
   - Google Embedding Model (Document Vectorization)
 - **Vector Database**: ChromaDB
 - **Document Processing**:
@@ -82,7 +82,17 @@ pip install -r requirements.txt
 4. Set up environment variables:
 Create a `.env` file with:
 ```plaintext
-GOOGLE_API_KEY=your-google-api-key-here
+GOOGLE_API_KEY=""
+OPENAI_API_KEY=""
+ANTHROPIC_API_KEY=""
+GOOGLE_API_KEY=""
+HUGGINGFACEHUB_API_TOKEN=""
+LANGSMITH_TRACING=true
+LANGSMITH_ENDPOINT=""
+LANGSMITH_API_KEY=""
+LANGSMITH_PROJECT=""
+PORT=8000
+
 ```
 
 5. Initialize the database:
@@ -107,16 +117,30 @@ The API will be available at: http://localhost:8000
 - `GET /list-docs`: List all uploaded documents
 - `POST /delete-doc`: Delete a document
 
-## 🗄️ Project Structure
+# AskMyPDFs - RAG-based Document QA System
+
+A full-stack application that enables users to chat with their documents using RAG (Retrieval Augmented Generation) and Google's Gemini Pro model.
+
+## 🏗️ Project Structure
 
 ```
-api/
-├── main.py              # FastAPI application
-├── db_utils.py          # Database utilities
-├── chroma_utils.py      # Vector store utilities
-├── langchain_utils.py   # LangChain RAG implementation
-├── pydantic_models.py   # Data models
-└── requirements.txt     # Project dependencies
+AskMyPDFs/
+├── api/                    # Backend FastAPI Application
+│   ├── main.py            # FastAPI application entry
+│   ├── db_utils.py        # Database utilities
+│   ├── chroma_utils.py    # Vector store utilities
+│   ├── langchain_utils.py # LangChain RAG implementation
+│   ├── pydantic_models.py # Data models
+│   └── requirements.txt   # Backend dependencies
+│
+├── app/                    # Frontend Streamlit Application
+│   ├── streamlit_app.py   # Main Streamlit application
+│   ├── api_utils.py       # API connection utilities
+│   ├── chat_interface.py  # Chat UI implementation
+│   ├── sidebar.py         # Sidebar UI implementation
+│   └── requirements.txt   # Frontend dependencies
+│
+└── README.md              # Project documentation
 ```
 
 ## 🔄 RAG Implementation
