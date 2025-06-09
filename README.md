@@ -21,16 +21,19 @@ A backend REST API service that allows users to upload documents (PDF, DOCX, HTM
 
 ## 🛠️ Technology Stack
 
-- **Framework**: FastAPI
-- **Language Models**: 
-  - Google Gemini (Chat)
-  - Google Embedding Model (Document Vectorization)
-- **Vector Database**: ChromaDB
-- **Document Processing**:
-  - langchain-community (Document Loaders)
-  - RecursiveCharacterTextSplitter
-- **Database**: SQLite
-- **API Documentation**: FastAPI Swagger/OpenAPI
+### Backend
+- FastAPI
+- LangChain
+- Google Gemini Pro
+- ChromaDB
+- SQLite
+- Python 3.10+
+
+### Frontend
+- Streamlit
+- Python Requests
+- Markdown Support
+- Session State Management
 
 ## 📋 Requirements
 
