@@ -111,7 +111,7 @@ cd api
 uvicorn main:app --reload
 ```
 
-The API will be available at: http://localhost:8000
+The API will be available at: http://localhost:8000 or https://askmypdfs.onrender.com/
 
 ## 📚 API Endpoints
 
